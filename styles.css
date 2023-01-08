@@ -1,0 +1,409 @@
+body {
+  background-color: #dddddd !important;
+}
+
+/* title styles for main page titles */
+
+.title {
+  font-size: 2.25rem;
+  width: fit-content;
+  margin: auto;
+  margin-top: 1.5rem;
+}
+
+/* title styles for action selection titles */
+
+.action-title {
+  font-size: 2rem;
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 3.5rem;
+}
+
+/* title styles for sub page titles */
+
+.page-title {
+  font-size: 2rem;
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 1.5rem;
+}
+
+/* main pages windows styles */
+
+.main-page {
+  background-color: #ffffff;
+  width: 50rem;
+  height: 50vh;
+  padding: 5rem 10rem 10rem 10rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.36);
+  margin: auto;
+  margin-top: 3rem;
+}
+
+/* main actions buttons styles*/
+
+.custom-button {
+  font-size: 1.5rem;
+  background-color: #428bca;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+  width: 20rem;
+}
+
+.custom-button:hover {
+  background-color: #3573bd;
+}
+
+.custom-button:active {
+  opacity: 0.8;
+}
+
+.button-outer-div {
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+/* submit forms buttons styles*/
+
+.submit-form-button {
+  border: none;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  width: 15rem;
+  background-color: #428bca;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.submit-form-button:hover {
+  background-color: #3573bd;
+}
+
+.submit-form-button:active {
+  opacity: 0.8;
+}
+
+/* search buttons styles*/
+
+.search-button {
+  border: none;
+  border-radius: 5px;
+  margin-left: 1rem;
+  width: 8rem;
+  background-color: #428bca;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.search-button:hover {
+  background-color: #3573bd;
+}
+
+.search-button:active {
+  opacity: 0.8;
+}
+
+/* anchor texts styles */
+
+.return-link {
+  width: fit-content;
+  margin: auto;
+  margin-top: 25px;
+  font-size: 1.5rem;
+}
+
+.return-link a {
+  text-decoration: none;
+}
+
+/* Citizen appointments page styles */
+
+.citizen-appointment-page {
+  display: none;
+  background-color: #ffffff;
+  width: 50rem;
+  min-height: 50vh;
+  padding: 3rem 10rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.36);
+  margin: auto;
+  margin-top: 3rem;
+}
+
+/* Citizen vaccinations page styles */
+
+.citizen-vaccination-status-page {
+  display: none;
+  background-color: #ffffff;
+  width: 50rem;
+  min-height: 50vh;
+  padding: 3rem 10rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.36);
+  margin: auto;
+  margin-top: 3rem;
+}
+
+/* Doctor appointments page styles */
+
+.doctor-appointments-page {
+  display: none;
+  background-color: #ffffff;
+  width: 50rem;
+  min-height: 50vh;
+  padding: 3rem 10rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.36);
+  margin: auto;
+  margin-top: 3rem;
+}
+
+/* Doctor vaccinations page styles */
+
+.doctor-vaccinations-page {
+  display: none;
+  background-color: #ffffff;
+  width: 50rem;
+  min-height: 50vh;
+  padding: 3rem 10rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.36);
+  margin: auto;
+  margin-top: 3rem;
+}
+
+/* Doctor Timeslots page styles */
+
+.doctor-timeslots-page {
+  display: none;
+  background-color: #ffffff;
+  width: 50rem;
+  min-height: 50vh;
+  padding: 3rem 10rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.36);
+  margin: auto;
+  margin-top: 3rem;
+}
+
+/* Citizen appoinments search section */
+
+.appointment-search {
+  font-size: 1.2rem;
+}
+
+.appointment-search input {
+  margin-left: 0.5rem;
+}
+
+.appointment-search-results-label {
+  display: none;
+  width: fit-content;
+  margin: 20px auto 10px auto;
+  font-size: 1.1rem;
+}
+
+.appointment-search-results {
+  display: none;
+  width: fit-content;
+  margin: auto;
+}
+
+.available-citizen-timeslots ul {
+  padding: 0em 1.5em;
+  max-height: 15vh;
+  overflow-y: auto;
+}
+
+.book-appointment {
+  display: none;
+}
+
+.book-appointment button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Citizen booking appointment page styles */
+
+.appointment-booking-page {
+  display: none;
+  background-color: #ffffff;
+  width: 50rem;
+  min-height: 50vh;
+  padding: 3rem 10rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.36);
+  margin: auto;
+  margin-top: 3rem;
+}
+
+/* Citizen booking appointment form styles */
+
+.appointment-form {
+  width: fit-content;
+  margin: auto;
+}
+
+.appointment-form input {
+  width: 15rem !important;
+  padding: 0.25rem;
+  margin-bottom: 10px;
+}
+
+.appointment-form label {
+  font-size: 1.2rem;
+}
+
+/* Vaccination status page results styles */
+
+.vaccination-search {
+  width: fit-content;
+  margin: auto;
+}
+
+.vaccination-search input {
+  margin-left: 0.5rem;
+}
+
+.vaccination-search-results {
+  display: none;
+  font-size: 1.2rem;
+  width: fit-content;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.vaccination-search-results div {
+  margin-top: 10px;
+}
+
+.vaccination-search-results-label {
+  width: 5rem;
+  margin-right: 1rem;
+}
+
+.vaccination-search-results-value {
+  font-style: italic;
+}
+
+/* Doctor submit vaccination form styles */
+
+.submit-vaccination-form {
+  width: fit-content;
+  margin: auto;
+}
+
+.submit-vaccination-form label {
+  font-size: 1.2rem;
+}
+
+.submit-vaccination-form input {
+  width: 15rem !important;
+  padding: 0.25rem;
+  margin-bottom: 10px;
+}
+
+/* Doctor available timeslots form styles */
+
+.doctor-available-timeslots-form  {
+  width: fit-content;
+  margin: auto;
+}
+
+.doctor-available-timeslots-form label {
+  font-size: 1.2rem;
+}
+
+.doctor-available-timeslots-form input {
+  width: 15rem !important;
+  padding: 0.25rem;
+  margin-bottom: 10px;
+}
+
+/* Doctor scheduled appointments page styles */
+
+.doctor-appointments-search {
+  width: fit-content;
+  margin: auto;
+}
+
+.doctor-appointments-search label {
+  font-size: 1.2rem;
+}
+
+.doctor-appointments-search input {
+  width: 15rem !important;
+  padding: 0.25rem;
+  margin-bottom: 10px;
+}
+
+.doctor-appointments-search select {
+  width: 15rem !important;
+  padding: 0.35rem;
+  margin-bottom: 10px;
+}
+
+.doctor-appoinments-results {
+  display: none;
+}
+
+.doctor-appoinments-results .row {
+  width: fit-content;
+  margin: auto;
+}
+
+/* Doctor scheduled appointments results table styles */
+
+.appointments-table {
+  border-collapse: collapse;
+  width: 25rem;
+}
+
+.appointments-table td, th {
+  padding: 5px;
+  border: 1px solid #dddddd;
+  text-align: left;
+}
+
+.appointments-table tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.appointments-table tr:nth-child(even) > td {
+  border-top: none;
+  border-bottom: none;
+  border-color: #ffffff;
+}
+
+#appointments-table_length select {
+  border-radius: 0px;
+}
+
+#appointments-table_filter input {
+  border-radius: 0px;
+  width: 8rem;
+}
+
+#appointments-table_info {
+  padding-top: 5px;
+  font-size: 0.8rem;
+  margin-top: 15px;
+}
+
+.dataTables_paginate {
+  margin-top: 15px !important;
+}
+
+.paginate_button a {
+  border-radius: 0px !important;
+  font-size: 0.8rem;
+}

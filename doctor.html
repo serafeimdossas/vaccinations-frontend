@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+  <script src="index.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#appointments-table').DataTable({
+        ordering: false,
+        lengthMenu: [5, 10, 15, 20]
+      });
+    });
+  </script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaccinations</title>
+</head>
+
+<body>
+  <div class="title"><span>Doctor Page</span></div>
+
+  <div class="main-page" id="doctor-main-page">
+    <div class="action-title">
+      <span>Select Action</span>
+    </div>
+    <div class="button-outer-div">
+      <button class="custom-button" id="doctor-appointments-button"
+        onclick="openDoctorAppointmentsPage()">Appointments</button>
+    </div>
+    <div class="button-outer-div">
+      <button class="custom-button" id="doctor-vaccinations-button" onclick="openDoctorVaccinationsPage()">Submit
+        Vaccination</button>
+    </div>
+    <div class="button-outer-div">
+      <button class="custom-button" id="doctor-timeslots-button" onclick="openDoctorTimeslotsPage()">Timeslots</button>
+    </div>
+  </div>
+
+  <div class="doctor-appointments-page" id="doctor-appointments-page">
+    <div class="page-title">
+      <span>Appointments List</span>
+    </div>
+
+    <div class="doctor-appointments-search" id="doctor-appointments-search">
+      <label for="appointment-doctor-assigned">Doctor (insert AMKA):</label>
+      <br />
+      <input type="text" id="appointment-doctor-assigned" name="appointment-doctor-assigned">
+      <br />
+      <label for="appointment-date-options">Time Period:</label>
+      <br />
+      <select name="appointment-date-options" id="appointment-date-options">
+        <option value="today">Today</option>
+        <option value="all">Next Month</option>
+      </select>
+      <br />
+      <button class="submit-form-button" id="appointment-search" onclick="searchForDoctorAppointments()">Show</button>
+    </div>
+
+    <div class="doctor-appoinments-results" id="doctor-appoinments-results">
+      <table class="appointments-table" id="appointments-table">
+        <thead>
+          <tr>
+            <th>Citizen</th>
+            <th>Timeslot</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>John Doe</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>John Doe</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+          <tr>
+            <td>Serafeim Dossas</td>
+            <td>12.00-12.05</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="doctor-vaccinations-page" id="doctor-vaccinations-page">
+    <div class="page-title">
+      <span>Submit Vaccination</span>
+    </div>
+
+    <div class="submit-vaccination-form">
+      <label for="vaccinated-citizen-first-name">First name</label>
+      <br />
+      <input type="text" id="vaccinated-citizen-first-name" name="vaccinated-citizen-first-name">
+      <br />
+      <label for="vaccinated-citizen-last-name">Last name</label>
+      <br />
+      <input type="text" id="vaccinated-citizen-last-name" name="vaccinated-citizen-last-name">
+      <br />
+      <label for="vaccinated-citizen-amka">AMKA</label>
+      <br />
+      <input type="text" id="vaccinated-citizen-amka" name="vaccinated-citizen-amka">
+      <br />
+      <label for="vaccinated-citizen-afm">AFM</label>
+      <br />
+      <input type="text" id="vaccinated-citizen-afm" name="vaccinated-citizen-afm">
+      <br />
+      <label for="vaccinated-citizen-email">Email</label>
+      <br />
+      <input type="text" id="vaccinated-citizen-email" name="vaccinated-citizen-email">
+      <br />
+      <button class="submit-form-button" id="submit-vaccination-form-button"
+        onclick="submitVaccination()">Submit</button>
+    </div>
+  </div>
+
+  <div class="doctor-timeslots-page" id="doctor-timeslots-page">
+    <div class="page-title">
+      <span>Available Timeslots</span>
+    </div>
+
+    <div class="doctor-available-timeslots-form">
+      <label for="available-timeslots-doctor">Doctor (insert AMKA):</label>
+      <br />
+      <input type="text" id="available-timeslots-doctor" name="available-timeslots-doctor">
+      <br />
+      <label for="available-timeslots-date">Date</label>
+      <br />
+      <input type="date" id="available-timeslots-date" name="available-timeslots-date">
+      <br />
+      <label for="avaiable-timeslots-start-time">Start Time</label>
+      <br />
+      <input type="time" id="avaiable-timeslots-start-time" name="avaiable-timeslots-start-time">
+      <br />
+      <label for="avaiable-timeslots-end-time">End Time</label>
+      <br />
+      <input type="time" id="avaiable-timeslots-end-time" name="avaiable-timeslots-end-time">
+      <br />
+      <button class="submit-form-button" id="submit-available-timeslots-form-button"
+        onclick="submitAvailableTimeslots()">Submit</button>
+    </div>
+  </div>
+
+  <div class="return-link">
+    <a href="index.html">Home Page</a>
+  </div>
+
+  <div class="return-link">
+    <a href="doctor.html">Doctor Menu</a>
+  </div>
+</body>
+
+</html>

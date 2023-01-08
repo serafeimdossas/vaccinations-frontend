@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+  <script src="index.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaccinations</title>
+</head>
+
+<body>
+  <div class="title"><span>Citizen Page</span></div>
+
+  <div class="main-page" id="citizen-main-page">
+    <div class="action-title">
+      <span>Select Action</span>
+    </div>
+    <div class="button-outer-div">
+      <button class="custom-button" id="citizen-appointment-button"
+        onclick="openCitizenAppointmentPage()">Appointment</button>
+    </div>
+    <div class="button-outer-div">
+      <button class="custom-button" id="citizen-vaccination-status-button"
+        onclick="openCitizenVaccinationStatusPage()">Vaccination Status</button>
+    </div>
+  </div>
+
+  <div class="citizen-appointment-page" id="citizen-appointment-page">
+    <div class="page-title">
+      <span>Appointment</span>
+    </div>
+
+    <div class="appointment-search">
+      <label for="appointment-date">Appointment Date:</label>
+      <input type="date" id="appointment-date" name="appointment-date">
+      <button class="search-button" id="appointment-search" onclick="searchForAppointment()">Search</button>
+    </div>
+
+    <div class="appointment-search-results-label" id="appointment-search-results-label">
+      <span>Available timeslots for given date:</span>
+    </div>
+
+    <div class="appointment-search-results" id="appointment-search-results">
+      <div class="available-citizen-timeslots">
+        <ul>
+          <li>10:00-10:05</li>
+          <li>10:00-10:05</li>
+          <li>10:00-10:05</li>
+          <li>10:00-10:05</li>
+          <li>10:00-10:05</li>
+          <li>10:00-10:05</li>
+          <li>10:00-10:05</li>
+          <li>10:00-10:05</li>
+          <li>10:00-10:05</li>
+          <li>10:00-10:05</li>
+          <li>10:00-10:05</li>
+          <li>10:00-10:05</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="book-appointment" id="book-appointment">
+      <button class="submit-form-button" id="book-appointment-button" onclick="goToBookAppointmentPage()">Book
+        Appointment</button>
+    </div>
+
+    <div class="book-appointment" id="update-appointment">
+      <button class="submit-form-button" id="update-appointment-button" onclick="goToUpdateAppointmentPage()">Update
+        Appointment</button>
+    </div>
+  </div>
+
+  <div class="appointment-booking-page" id="appointment-booking-page">
+    <div class="page-title">
+      <span>Book Appointment</span>
+    </div>
+
+    <div class="appointment-form">
+      <label for="first-name">First name</label>
+      <br />
+      <input type="text" id="first-name" name="first-name">
+      <br />
+      <label for="last-name">Last name</label>
+      <br />
+      <input type="text" id="last-name" name="last-name">
+      <br />
+      <label for="amka">AMKA</label>
+      <br />
+      <input type="text" id="amka" name="amka">
+      <br />
+      <br />
+      <label for="date">Date</label>
+      <br />
+      <input type="date" id="form-appointment-date" name="appointment-date">
+      <br />
+      <label for="start-time">Start Time</label>
+      <br />
+      <input type="time" id="appointment-start-time" name="appointment-start-time">
+      <br />
+      <label for="end-time">End Time</label>
+      <br />
+      <input type="time" id="appointment-end-time" name="appointment-end-time">
+      <br />
+      <br />
+      <label for="appointment-doctor">Doctor</label>
+      <br />
+      <input type="text" id="appointment-doctor" name="appointment-doctor">
+      <br />
+      <br />
+      <button class="submit-form-button" id="confirm-book-appointment-button"
+        onclick="bookAppointment()">Book Appointment</button>
+    </div>
+  </div>
+
+  <div class="appointment-booking-page" id="appointment-update-page">
+    <div class="page-title">
+      <span>Update Appointment</span>
+    </div>
+
+    <div class="appointment-form">
+      <label for="first-name">First name</label>
+      <br />
+      <input type="text" id="update-appointment-first-name" name="first-name">
+      <br />
+      <label for="last-name">Last name</label>
+      <br />
+      <input type="text" id="update-appointment-last-name" name="last-name">
+      <br />
+      <label for="amka">AMKA</label>
+      <br />
+      <input type="text" id="update-appointment-amka" name="amka">
+      <br />
+      <br />
+      <label for="date">Date</label>
+      <br />
+      <input type="date" id="update-appointment-form-appointment-date" name="appointment-date">
+      <br />
+      <label for="start-time">Start Time</label>
+      <br />
+      <input type="time" id="update-appointment-appointment-start-time" name="appointment-start-time">
+      <br />
+      <label for="end-time">End Time</label>
+      <br />
+      <input type="time" id="update-appointment-appointment-end-time" name="appointment-end-time">
+      <br />
+      <br />
+      <label for="appointment-doctor">Doctor</label>
+      <br />
+      <input type="text" id="update-appointment-appointment-doctor" name="appointment-doctor">
+      <br />
+      <br />
+      <button class="submit-form-button" id="confirm-update-appointment-button"
+        onclick="updateAppointment()">Update Appointment</button>
+    </div>
+  </div>
+
+  <div class="citizen-vaccination-status-page" id="citizen-vaccination-status-page">
+    <div class="page-title">
+      <span>Vaccination Status</span>
+    </div>
+
+    <div class="vaccination-search">
+      <label for="vaccination-amka">AMKA:</label>
+      <input type="text" id="vaccination-amka" name="vaccination-amka">
+      <button class="search-button" id="appointment-search" onclick="searchForVaccination()">Show Status</button>
+    </div>
+
+    <div class="vaccination-search-results" id="vaccination-search-results">
+      <div class="vaccination-status">
+        <span class="vaccination-search-results-label">Status:</span>
+        <span class="vaccination-search-results-value" id="vaccination-status"></span>
+      </div>
+      <div class="vaccination-expiring-date">
+        <span class="vaccination-search-results-label">Expiring Date:</span>
+        <span class="vaccination-search-results-value" id="vaccination-expiring-date"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="return-link">
+    <a href="index.html">Home Page</a>
+  </div>
+
+  <div class="return-link">
+    <a href="citizen.html">Citizen Menu</a>
+  </div>
+</body>
+
+</html>
