@@ -219,8 +219,17 @@ body {
 
 .available-citizen-timeslots ul {
   padding: 0em 1.5em;
-  max-height: 15vh;
+  max-height: 20vh;
   overflow-y: auto;
+}
+
+.available-citizen-timeslots ul li {
+  margin-bottom: 10px;
+}
+
+.available-citizen-timeslots ul li span {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .book-appointment {
@@ -406,4 +415,8 @@ body {
 .paginate_button a {
   border-radius: 0px !important;
   font-size: 0.8rem;
+}
+
+.appointments-table td {
+  font-size: 0.9rem;
 }
