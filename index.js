@@ -50,7 +50,31 @@ const openDoctorTimeslotsPage = () => {
 
 const searchForAppointment = () => {
   const date = document.getElementById("appointment-date");
-  console.log(new Date(date.value).getTime());
+  const day = new Date(date.value).getDate();
+  const month = new Date(date.value).getMonth() + 1;
+  const year = new Date(date.value).getFullYear();
+
+  fetch(`http://localhost:8080/timeslots/${day}/${month}/${year}`)
+    .then((response) => {
+      return response.json()
+    })
+    .then((response) => {
+      const timeslotsList = document.getElementById("timeslots-ul-list");
+      timeslotsList.innerHTML = '';
+      if (response.length === 0) {
+        timeslotsList.innerHTML = '-';
+      } else {
+        response.map((timeslot) => {
+          let newLi = document.createElement('li');
+          let startTime = new Date(timeslot.start).getHours() + ":" + new Date(timeslot.start).getMinutes()
+          let endime = new Date(timeslot.end).getHours() + ":" + new Date(timeslot.end).getMinutes()
+          let doctorName = timeslot.doctor.name + " " + timeslot.doctor.surname + ", Doctor AMKA: " + timeslot.doctor.amka;
+          let text = startTime + "-" + endime + ", Doctor: " + doctorName
+          newLi.appendChild(document.createTextNode(text))
+          timeslotsList.appendChild(newLi)
+        })
+      }
+    });
 
   const searchResultsLabel = document.getElementById("appointment-search-results-label");
   const searchResults = document.getElementById("appointment-search-results");
@@ -85,13 +109,36 @@ const bookAppointment = () => {
   const endTime = document.getElementById("appointment-end-time");
   const doctor = document.getElementById("appointment-doctor");
 
-  console.log(firstName.value)
-  console.log(lastName.value)
-  console.log(amka.value)
-  console.log(date.value)
-  console.log(startTime.value)
-  console.log(endTime.value)
-  console.log(doctor.value)
+  const timeslot = new Date(date.value + "T" + startTime.value + ":00.000+02:00").getTime();
+
+  const appointmentBody = {
+    doctor: parseInt(doctor.value),
+    citizen: parseInt(amka.value),
+    timeslot: timeslot,
+    firstName: firstName.value,
+    lastName: lastName.value
+  }
+
+  fetch(`http://localhost:8080/appointment`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(appointmentBody)
+  })
+    .then((response) => {
+      if (response.status !== 404) {
+        return response.json()
+      } else {
+        return null;
+      }
+    })
+    .then((response) => {
+      if (response === null) {
+        alert('Wrong timeslot data! Check available timeslots again!')
+      }
+      goToCitizenPage();
+    });
 }
 
 const updateAppointment = () => {
@@ -103,26 +150,62 @@ const updateAppointment = () => {
   const endTime = document.getElementById("update-appointment-appointment-end-time");
   const doctor = document.getElementById("update-appointment-appointment-doctor");
 
-  console.log(firstName.value)
-  console.log(lastName.value)
-  console.log(amka.value)
-  console.log(date.value)
-  console.log(startTime.value)
-  console.log(endTime.value)
-  console.log(doctor.value)
+  const timeslot = new Date(date.value + "T" + startTime.value + ":00.000+02:00").getTime();
+
+  const appointmentBody = {
+    doctor: parseInt(doctor.value),
+    citizen: parseInt(amka.value),
+    timeslot: timeslot,
+    firstName: firstName.value,
+    lastName: lastName.value
+  }
+
+  fetch(`http://localhost:8080/appointment/${parseInt(amka.value)}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(appointmentBody)
+  })
+    .then((response) => {
+      if (response.status !== 404) {
+        return response.json()
+      } else {
+        return null;
+      }
+    })
+    .then((response) => {
+      if (response === null) {
+        alert('Wrong timeslot data or non-existing previous appointment for Citizen. Try again!')
+      }
+      goToCitizenPage();
+    });
 }
 
 const searchForVaccination = () => {
   const amka = document.getElementById("vaccination-amka");
-  console.log(amka.value);
-
   const vaccinationResults = document.getElementById("vaccination-search-results");
   const status = document.getElementById("vaccination-status");
   const expiringDate = document.getElementById("vaccination-expiring-date");
 
-  vaccinationResults.style.display = "block";
-  status.innerHTML = "VACCINATED";
-  expiringDate.innerHTML = "05-04-2023";
+  fetch(`http://localhost:8080/vaccination/${amka.value}`)
+    .then((response) => {
+      return response.json()
+    })
+    .then((response) => {
+      if (response === null) {
+        vaccinationResults.style.display = "block";
+        status.innerHTML = "NOT VACCINATED";
+        expiringDate.innerHTML = "-";
+      } else {
+        const expiryDay = new Date(response.expiryDate).getDate();
+        const expiryMonth = new Date(response.expiryDate).getMonth() + 1;
+        const expiryYear = new Date(response.expiryDate).getFullYear();
+        vaccinationResults.style.display = "block";
+        status.innerHTML = "VACCINATED";
+        expiringDate.innerHTML = expiryDay + "-" + expiryMonth + "-" + expiryYear;
+      }
+    });
 }
 
 const submitVaccination = () => {
@@ -131,55 +214,138 @@ const submitVaccination = () => {
   const amka = document.getElementById("vaccinated-citizen-amka");
   const afm = document.getElementById("vaccinated-citizen-afm");
   const email = document.getElementById("vaccinated-citizen-email");
+  const doctorFirstName = document.getElementById("vaccinated-citizen-doctor-first-name");
+  const doctorLastName = document.getElementById("vaccinated-citizen-doctor-last-name");
+  const doctorAmka = document.getElementById("vaccinated-citizen-doctor-amka");
 
-  console.log(firstName.value)
-  console.log(lastName.value)
-  console.log(amka.value)
-  console.log(afm.value)
-  console.log(email.value)
+  /* Date values */
+  const vaccinationDate = new Date().getTime();
+  const sixMonthsFromNowMilliseconds = 1000 * 60 * 60 * 24 * 180;
+  const expiryDate = new Date().getTime() + sixMonthsFromNowMilliseconds;
+
+  const vaccinationBody = {
+    doctor: parseInt(doctorAmka.value),
+    doctorFirstName: doctorFirstName.value,
+    doctorLastName: doctorLastName.value,
+    vaccinationDate: vaccinationDate,
+    expiryDate: expiryDate,
+    citizenAmka: parseInt(amka.value),
+    citizenName: firstName.value,
+    citizenSurname: lastName.value,
+    citizenAfm: parseInt(afm.value),
+    citizenEmail: email.value
+  }
+
+  fetch(`http://localhost:8080/vaccination`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(vaccinationBody)
+  })
+    .then((response) => {
+      return response.json()
+    })
+    .then((response) => {
+      console.log(response)
+      goToDoctorPage()
+    });
 }
 
 const submitAvailableTimeslots = () => {
+  const doctorName = document.getElementById("available-timeslots-doctor-first-name");
+  const doctorSurname = document.getElementById("available-timeslots-doctor-last-name");
   const doctor = document.getElementById("available-timeslots-doctor");
   const date = document.getElementById("available-timeslots-date");
   const startTime = document.getElementById("avaiable-timeslots-start-time");
   const endTime = document.getElementById("avaiable-timeslots-end-time");
 
-  console.log(doctor.value)
-  console.log(date.value)
-  console.log(startTime.value)
-  console.log(endTime.value)
+  const doctorAmka = doctor.value;
+  const timeslotStart = date.value + "T" + startTime.value + ":00.000+02:00"
+  const timeslotEnd = date.value + "T" + endTime.value + ":00.000+02:00"
+
+  const timeslotBody = {
+    doctorAmka: parseInt(doctorAmka),
+    doctorFirstName: doctorName.value,
+    doctorLastName: doctorSurname.value,
+    start: new Date(timeslotStart).getTime(),
+    end: new Date(timeslotEnd).getTime()
+  };
+
+  fetch(`http://localhost:8080/timeslots`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(timeslotBody)
+  })
+    .then((response) => {
+      return response.json()
+    })
+    .then((response) => {
+      console.log(response)
+      goToDoctorPage();
+    });
 }
 
 const searchForDoctorAppointments = () => {
   const doctor = document.getElementById("appointment-doctor-assigned");
   const timePeriod = document.getElementById("appointment-date-options");
-
-  console.log(doctor.value)
-  console.log(timePeriod.value)
-
+  const tableBody = document.getElementById("appointments-table").getElementsByTagName('tbody')[0];
   const searchForm = document.getElementById("doctor-appointments-search");
-  searchForm.style.display = "none";
   const appointmentsResults = document.getElementById("doctor-appoinments-results");
-  appointmentsResults.style.display = "block";
 
-  // /* Get table */
-  // const appoinmentsTable = document.getElementById("appointments-table");
-  // /* Get Row */
-  // const row1 = appoinmentsTable.insertRow(1);
-  // /* Get cells */
-  // const cell1 = row1.insertCell(0);
-  // const cell2 = row1.insertCell(1);
-  // /* Insert Data to cells */
-  // cell1.innerHTML = "Serafeim Dossas";
-  // cell2.innerHTML = "20.05-20.10";
+  const appoinmentPeriod = timePeriod.value === "today" ? "today" : "all";
+  const doctorAmka = doctor.value;
 
-  // /* Get Row */
-  // const row2 = appoinmentsTable.insertRow(2);
-  // /* Get cells */
-  // const cell3 = row2.insertCell(0);
-  // const cell4 = row2.insertCell(1);
-  // /* Insert Data to cells */
-  // cell3.innerHTML = "John Doe";
-  // cell4.innerHTML = "21.45-21.50";
+  fetch(`http://localhost:8080/appointments/${appoinmentPeriod}/${doctorAmka}`)
+    .then((response) => {
+      return response.json()
+    })
+    .then((response) => {
+      if (response.length === 0) {
+        searchForm.style.display = "none";
+        appointmentsResults.style.display = "block";
+        $(document).ready(function () {
+          $('#appointments-table').DataTable({
+            ordering: false,
+            lengthMenu: [5, 10, 15, 20]
+          });
+        });
+      } else {
+        searchForm.style.display = "none";
+        appointmentsResults.style.display = "block";
+        response.forEach((appointment, index) => {
+          /* Create new row */
+          let row = tableBody.insertRow();
+          /* Create cells */
+          let cell0 = row.insertCell();
+          let cell1 = row.insertCell();
+          let cell2 = row.insertCell();
+          /* Add text to cells */
+          let citizen = appointment.appointmentCitizen.name + " " + appointment.appointmentCitizen.surname;
+          cell0.innerHTML = citizen;
+          let timeslotStartDate = new Date(appointment.appointmentTimeslot.start).getDate();
+          let timeslotStartMonth = new Date(appointment.appointmentTimeslot.start).getMonth() + 1;
+          let timeslotStartYear = new Date(appointment.appointmentTimeslot.start).getFullYear();
+          let timeslotStartHour = new Date(appointment.appointmentTimeslot.start).getHours();
+          let timeslotStartMinutes = new Date(appointment.appointmentTimeslot.start).getMinutes();
+          let timeslotEndHour = new Date(appointment.appointmentTimeslot.end).getHours();
+          let timeslotEndMinutes = new Date(appointment.appointmentTimeslot.end).getMinutes();
+          let timeslot = `${timeslotStartHour}:${timeslotStartMinutes} - ${timeslotEndHour}:${timeslotEndMinutes} (${timeslotStartDate}/${timeslotStartMonth}/${timeslotStartYear}) `
+          cell1.innerHTML = timeslot;
+          let doctor = appointment.appointmentDoctor.name + " " + appointment.appointmentDoctor.surname;
+          cell2.innerHTML = doctor;
+
+          if (index === response.length - 1) {
+            $(document).ready(function () {
+              $('#appointments-table').DataTable({
+                ordering: false,
+                lengthMenu: [5, 10, 15, 20]
+              });
+            });
+          }
+        })
+      }
+    });
 }

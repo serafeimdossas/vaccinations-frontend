@@ -9,14 +9,17 @@
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('#appointments-table').DataTable({
-        ordering: false,
-        lengthMenu: [5, 10, 15, 20]
-      });
-    });
-  </script>
+  <!-- <script type="text/javascript">
+    // $(document).ready(function () {
+    //   $('#appointments-table').DataTable({
+    //     ordering: false,
+    //     lengthMenu: [5, 10, 15, 20],
+    //     createdRow: () => {
+    //       console.log("row created")
+    //     }
+    //   });
+    // });
+  </script> -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,7 +60,7 @@
       <br />
       <select name="appointment-date-options" id="appointment-date-options">
         <option value="today">Today</option>
-        <option value="all">Next Month</option>
+        <option value="all">All appointments</option>
       </select>
       <br />
       <button class="submit-form-button" id="appointment-search" onclick="searchForDoctorAppointments()">Show</button>
@@ -72,8 +75,8 @@
             <th>Doctor</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody id="appointments-table-body">
+          <!-- <tr>
             <td>Serafeim Dossas</td>
             <td>12.00-12.05</td>
             <td>Doctor Name</td>
@@ -87,87 +90,7 @@
             <td>Serafeim Dossas</td>
             <td>12.00-12.05</td>
             <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>John Doe</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>John Doe</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
-          <tr>
-            <td>Serafeim Dossas</td>
-            <td>12.00-12.05</td>
-            <td>Doctor Name</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
@@ -199,6 +122,18 @@
       <br />
       <input type="text" id="vaccinated-citizen-email" name="vaccinated-citizen-email">
       <br />
+      <label for="vaccinated-citizen-doctor-first-name">Doctor First name</label>
+      <br />
+      <input type="text" id="vaccinated-citizen-doctor-first-name" name="vaccinated-citizen-doctor-first-name">
+      <br />
+      <label for="vaccinated-citizen-doctor-last-name">Doctor Last name</label>
+      <br />
+      <input type="text" id="vaccinated-citizen-doctor-last-name" name="vaccinated-citizen-doctor-last-name">
+      <br />
+      <label for="vaccinated-citizen-doctor-amka">Doctor AMKA</label>
+      <br />
+      <input type="text" id="vaccinated-citizen-doctor-amka" name="vaccinated-citizen-doctor-amka">
+      <br />
       <button class="submit-form-button" id="submit-vaccination-form-button"
         onclick="submitVaccination()">Submit</button>
     </div>
@@ -210,6 +145,14 @@
     </div>
 
     <div class="doctor-available-timeslots-form">
+      <label for="available-timeslots-doctor-first-name">First name</label>
+      <br />
+      <input type="text" id="available-timeslots-doctor-first-name" name="available-timeslots-doctor-first-name">
+      <br />
+      <label for="available-timeslots-doctor-last-name">Last name</label>
+      <br />
+      <input type="text" id="available-timeslots-doctor-last-name" name="available-timeslots-doctor-last-name">
+      <br />
       <label for="available-timeslots-doctor">Doctor (insert AMKA):</label>
       <br />
       <input type="text" id="available-timeslots-doctor" name="available-timeslots-doctor">
